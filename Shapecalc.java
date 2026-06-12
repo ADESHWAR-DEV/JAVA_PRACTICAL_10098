@@ -1,62 +1,94 @@
-// defined shape interface 
+// Common Interface for all shapes
 interface Shape {
-   double calculateArea();
+    double calculateArea();
 }
 
-// defined class based on shapes
+// 1. Circle Class
 class Circle implements Shape {
     double radius;
-    
-    // constructor
-    Circle(double radius){
+
+    Circle(double radius) {
         this.radius = radius;
     }
-    
-    // method overriding
+
+    @Override
     public double calculateArea() {
         return Math.PI * radius * radius;
     }
 }
 
+// 2. Square Class
 class Square implements Shape {
     double side;
-    
-    // constructor
-    Square(double side){
+
+    Square(double side) {
         this.side = side;
     }
-    
-    // method overriding
+
+    @Override
     public double calculateArea() {
         return side * side;
     }
 }
 
+// 3. Rectangle Class
+class Rectangle implements Shape {
+    double length;
+    double width;
+
+    Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    public double calculateArea() {
+        return length * width;
+    }
+}
+
+// 4. Triangle Class (Using Base and Height)
+class Triangle implements Shape {
+    double base;
+    double height;
+
+    Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public double calculateArea() {
+        return 0.5 * base * height;
+    }
+}
+
+// Main Class to Evaluate
 public class Shapecalc {
     public static void main(String[] args) {
         
-        // 1. Shape objects ka ek Array banaya
-        Shape[] shapes = new Shape[4];
-        
-        // 2. Array mein different shapes store kiye (Polymorphism)
-        shapes[0] = new Circle(5);
-        shapes[1] = new Square(4);
-        shapes[2] = new Circle(3);
-        shapes[3] = new Square(6);
+        // Array creating and inserting all geometric shapes
+        Shape[] shapes = {
+            new Circle(5),          // Radius = 5
+            new Square(4),          // Side = 4
+            new Rectangle(6, 4),    // Length = 6, Width = 4
+            new Triangle(5, 8)      // Base = 5, Height = 8
+        };
 
-        // 3. Array ko evaluate karne ke liye loop chalaya aur total area calculate kiya
         double totalArea = 0;
-        
-        System.out.println("--- Individual Shapes Evaluation ---");
-        for (int i = 0; i < shapes.length; i++) {
-            double area = shapes[i].calculateArea();
-            totalArea += area; // Total area add karne ke liye
-            
-            // shapes[i].getClass().getSimpleName() se class ka naam (Circle/Square) pata chalega
-            System.out.println("Shape " + (i + 1) + " (" + shapes[i].getClass().getSimpleName() + ") Area = " + area);
+
+        System.out.println("          SHAPE AREA EVALUATION              ");
+
+        // Enhanced for-each loop to evaluate all shapes
+        for (Shape shape : shapes) {
+            double area = shape.calculateArea();
+            totalArea += area;
+
+            // %.2f use kiya hai taaki decimal ke baad sirf 2 digits print ho (clean output)
+            System.out.printf("Shape: %-10s | Evaluated Area: %.2f\n", 
+                    shape.getClass().getSimpleName(), area);
         }
-        
-        System.out.println("------------------------------------");
-        System.out.println("Total Area of all shapes = " + totalArea);
+
+        System.out.printf("Total Combined Area of All Shapes = %.2f\n", totalArea);
     }
 }
