@@ -112,7 +112,7 @@ class Triangle extends Shape {
 }
 
 // --- MAIN CLASS ---
-public class EnhancedShapeCalc {
+public class Shapecalc {
     // ARRAY CONCEPT: Fixed-size array instead of ArrayList
     private static final int MAX_SHAPES = 100;
     private static Shape[] shapeArray = new Shape[MAX_SHAPES];
